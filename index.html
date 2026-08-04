@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week06 課題　BMI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black-444">
+    <div class="bg-white max-w-md rounded-xl shadow-md p-6">
+        <h1 class="text-2xl font-bold">BMI計算機</h1>
+
+        <label for="height" class="block mt-4">身長 (cm)</label>
+        <input id="height" type="number" class="mt-2 rounded-lg border border-slate-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200">
+
+        <label for="weight" class="block mt-4">体重 (kg)</label>
+        <input id="weight" type="number" class="mt-2 rounded-lg border border-slate-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200">
+
+        <button id="calcBtn" class="p-3 bg-blue-500 text-white rounded hover:bg-blue-600 mt-4">計算する</button>
+
+        <div id="result" class="text-xl font-bold mt-4"></div>
+        <div id="bmiValue" class="text-lg font-semibold mt-4"></div>
+        <div id="bmiStatus" class="text-lg font-semibold mt-4"></div>
+    </div>
+    <script>
+        const heightInput = document.querySelector("#height");
+        const weightInput = document.querySelector("#weight");
+        const calcBtn = document.querySelector("#calcBtn");
+        const resultDiv = document.querySelector("#result");
+        const bmiValueDiv = document.querySelector("#bmiValue");
+        const bmiStatusDiv = document.querySelector("#bmiStatus");
+
+        calcBtn.addEventListener("click", () => {
+            const height = Number(heightInput.value) / 100;
+            const weight = Number(weightInput.value);
+            if (height > 0 && weight > 0) {
+                const bmi = weight / (height * height);
+                bmiValueDiv.textContent = `BMI: ${bmi.toFixed(2)}`;
+                let status="";
+                if (bmi < 18.5) {
+                    status = "やせ型";
+                } else if (bmi < 25) {
+                    status = "普通体重";
+                } else if (bmi < 30) {
+                    status = "肥満";
+                }
+                bmiStatusDiv.textContent = `判定: ${status}`;
+            } else {
+                bmiStatusDiv.textContent = "身長と体重を正しく入力してください。";
+            }
+        });
+    </script>
+</body>
+</html>
